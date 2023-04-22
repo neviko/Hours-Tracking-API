@@ -8,7 +8,7 @@ export const login = async (userId: string) => {
   //TODO: check if there an open log and force closing it
   try {
     await pool.query(
-      "INSERT INTO tracking (start_ts, end_ts, user_id) VALUES($1,$2,$3)",
+      "INSERT INTO tracking (start_ts, end_ts, email) VALUES($1,$2,$3)",
       [nowTime, null, userId]
     );
   } catch (e) {

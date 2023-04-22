@@ -1,18 +1,18 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { logout } from "../services/logout-service";
+import { login } from "../services/login-service";
 
 const router = express.Router();
 
 router.post(
-  "/api/users/logout",
+  "/api/users/covid-report",
   [body("email").notEmpty().withMessage("User id must be valid")],
   async (req: Request, res: Response) => {
     const { email: userId } = req.body;
-    await logout(userId);
-    console.log(`user id logged out ${userId}`);
-    res.status(201).send("logout created successfully");
+    console.log(`user id logged in ${userId}`);
+    await login(userId);
+    res.status(201).send("login created successfully");
   }
 );
 
-export { router as logoutRouter };
+export { router as loginRouter };
