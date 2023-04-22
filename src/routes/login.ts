@@ -3,14 +3,13 @@ import { body } from "express-validator";
 import { login } from "../services/login-service";
 
 const router = express.Router();
-
 router.post(
   "/api/users/login",
-  [body("email").notEmpty().withMessage("User id must be valid")],
+  [body("email").isEmail().notEmpty().withMessage("Email must be valid")],
   async (req: Request, res: Response) => {
-    const { email: userId } = req.body;
-    console.log(`user id logged in ${userId}`);
-    await login(userId);
+    const { email } = req.body;
+    console.log(`Email logged in ${email}`);
+    await login(email);
     res.status(201).send("login created successfully");
   }
 );

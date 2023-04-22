@@ -3,14 +3,13 @@ import { body } from "express-validator";
 import { logout } from "../services/logout-service";
 
 const router = express.Router();
-
 router.post(
   "/api/users/logout",
-  [body("email").notEmpty().withMessage("User id must be valid")],
+  [body("email").isEmail().withMessage("Email must be valid")],
   async (req: Request, res: Response) => {
-    const { email: userId } = req.body;
-    await logout(userId);
-    console.log(`user id logged out ${userId}`);
+    const { email } = req.body;
+    await logout(email);
+    console.log(`Email logged out ${email}`);
     res.status(201).send("logout created successfully");
   }
 );
